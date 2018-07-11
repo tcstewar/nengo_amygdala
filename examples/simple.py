@@ -45,22 +45,27 @@ with model:
                    ])
 
 
-    '''
-    amygdala = amy.Amygdala(l2b=L2B, l2c=L2C, b2c=B2C)
-
-
     amygdala = amy.Amygdala(lateral_dim=4, basal_dim=2, central_dim=4)
-    nengo.Connection(amygdala.lateral, amygdala.central, function=L2C)
-    '''
-
-    amygdala = amy.Amygdala(lateral=4, basal=2, central=4)
     amygdala.make_l2c(function=L2C)
     eval_points=np.array(list(L2B.keys()))
     function=np.array(list(L2B.values()))
     amygdala.make_l2b(eval_points=eval_points, function=function)
     amygdala.make_b2c(transform=B2C)
     
+    stim_lateral = nengo.Node([0]*4)
+    nengo.Connection(stim_lateral, amygdala.lateral)
     
     
+    cortex = nengo.Ensemble(n_neurons=200, dimensions=2)
+    nengo.Connection(amygdala.basal.output, cortex)
+    nengo.Connection(cortex, amygdala.basal.input)
+    
+    
+  
+ 
+   
+    
+    
+
 
 
