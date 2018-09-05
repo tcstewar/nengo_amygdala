@@ -17,6 +17,10 @@ class Amygdala(nengo.Network):
             self.central_dim = central_dim
             self.basal_config = basal_config
 
+            self.lateral_n_per_d = lateral_n_per_d
+            self.basal_n_per_d = basal_n_per_d
+            self.central_n_per_d = central_n_per_d
+
             self.lateral = nengo.Ensemble(n_neurons=lateral_n_per_d*lateral_dim,
                                           dimensions=lateral_dim)
 
